@@ -5,38 +5,41 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: ""
+      newsInput: "",
+      news: []
     };
-    this.listNews = [];
   }
   handleChange = event => {
     this.setState({
-      value: event.target.value
+      newsInput: event.target.value
     });
   };
-  addNews = event => {
-    this.listNews.push(this.state.value);
-    this.setState({
-      value: ""
+  handleNewPost = event => {
+    this.setState((prevState, props) => {
+      const news = prevState.news;
+      news.push(prevState.newsInput);
+      return {
+        newsInput: "",
+        news: news
+      };
     });
   };
   render() {
-    let value = this.state.value;
-
+    const { newsInput: value, news } = this.state;
     return (
-      <React.Fragment>
+      <div className="App">
         <input
           onChange={this.handleChange}
           value={value}
-          placeholder="Введите новость..."
+          placeholder="Какие новости?"
         />
-
-        <button onClick={this.addNews}>Добавить</button>
-
-        <ul>
-          {this.listNews.map((news, i) => <NewsPost key={i} value={news} />)}
-        </ul>
-      </React.Fragment>
+        <button onClick={this.handleNewPost}>Добавить</button>
+        <div>
+          {news.map((text, i) => {
+            return <NewsPost key={text} text={text} />;
+          })}
+        </div>
+      </div>
     );
   }
 }

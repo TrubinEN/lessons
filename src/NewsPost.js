@@ -2,6 +2,7 @@ import React from "react";
 
 export default class NewsPost extends React.Component {
   render() {
-    return <li>{this.props.value}</li>;
+    const { text = "" } = this.props;
+    return <p>{text}</p>;
   }
 }
