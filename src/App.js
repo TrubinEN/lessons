@@ -1,5 +1,6 @@
 import React from "react";
 import NewsPost from "./NewsPost";
+import "./App.css";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -16,11 +17,10 @@ export default class App extends React.Component {
   };
   handleNewPost = event => {
     this.setState((prevState, props) => {
-      const news = prevState.news;
-      news.push(prevState.newsInput);
+      const { news, newsInput } = prevState;
       return {
         newsInput: "",
-        news: news
+        news: [...news, { text: newsInput }]
       };
     });
   };
@@ -29,14 +29,15 @@ export default class App extends React.Component {
     return (
       <div className="App">
         <input
+          className="todo-input"
           onChange={this.handleChange}
           value={value}
           placeholder="Какие новости?"
         />
-        <button onClick={this.handleNewPost}>Добавить</button>
-        <div>
-          {news.map((text, i) => {
-            return <NewsPost key={text} text={text} />;
+        <button onClick={this.handleNewPost}>Создать новость</button>
+        <div className="todo-container">
+          {news.map((news, i) => {
+            return <NewsPost key={i} text={news.text} />;
           })}
         </div>
       </div>
