@@ -17,24 +17,17 @@ export default class App extends React.Component {
       { number: 3, title: "Finish" }
     ]
   };
-
   handleTabClick = step => {
-    console.log(step);
-    // При вызове с аргументом меняется state.step на значение аргумента
     this.setState({
       step: step
     });
   };
   handleChangeForm = (name, value) => {
-    // state[первый аргумент] = второй аргумент
     this.setState({
       [name]: value
     });
-    this.isFormCommitable();
-    console.log(this.state);
   };
   handleClickNextForm = event => {
-    // После вызова state.step увеличивается на 1
     let { step } = this.state;
     this.setState({
       step: step + 1
@@ -84,21 +77,17 @@ export default class App extends React.Component {
             onChangeForm={this.handleChangeForm}
           />
         );
-        break;
       case 2:
         return (
           <CardForm
             cardNumber={this.state.cardNumber}
             onChangeForm={this.handleChangeForm}
-            onChangeForm={this.handleChangeForm}
           />
         );
-        break;
       case 3:
         return `Поздравляем!`;
-        break;
       default:
-        null;
+        return null;
     }
   }
   render() {
@@ -107,20 +96,20 @@ export default class App extends React.Component {
       <div className="container">
         <div className="tab-panel">
           {steps.map((step, i) => {
-            return <Step
-              key={step.number}
-              number={step.number}
-              onClick={this.handleTabClick}
-              isSelected={this.isSelected(step.number)}
-              isClickable={this.isClickable(step.number)}
-            >
-              {step.title}
-            </Step>;
+            return (
+              <Step
+                key={step.number}
+                number={step.number}
+                onClick={this.handleTabClick}
+                isSelected={this.isSelected(step.number)}
+                isClickable={this.isClickable(step.number)}
+              >
+                {step.title}
+              </Step>
+            );
           })}
         </div>
-
         <div className="form-content">{this.renderForm()}</div>
-
         <div className="button-panel">
           <button
             className="button-next"
