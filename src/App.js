@@ -3,25 +3,22 @@ import NewsPost from "./NewsPost";
 import "./App.css";
 
 export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      newsInput: "",
-      news: []
-    };
-  }
+  state = {
+    newsInput: "",
+    news: []
+  };
   handleChange = event => {
     this.setState({
       newsInput: event.target.value
     });
   };
   handleNewPost = event => {
-    this.setState((prevState, props) => {
-      const { news, newsInput } = prevState;
-      return {
-        newsInput: "",
-        news: [...news, { text: newsInput }]
-      };
+    const { news, newsInput } = this.state;
+    // check empty newsInput value
+    if (newsInput.trim().length === 0) return;
+    this.setState({
+      newsInput: "",
+      news: [...news, { text: newsInput }]
     });
   };
   render() {
