@@ -74,18 +74,14 @@ export default class App extends React.Component {
           onChangeForm={this.handleChangeForm}
         />
       );
-    }
-
-    if (step === 2) {
+    } else if (step === 2) {
       return (
         <CardForm
           cardNumber={this.state.cardNumber}
           onChangeForm={this.handleChangeForm}
         />
       );
-    }
-
-    if (step === 3) {
+    } else if (step === 3) {
       return `Поздравляем!`;
     }
 
