@@ -5,7 +5,6 @@ export default class CardForm extends React.Component {
   handleChangeForm = event => {
     this.props.onChangeForm(event.target.name, event.target.value);
   };
-  componentWillUnmount() {}
   render() {
     const { cardNumber } = this.props;
     return (

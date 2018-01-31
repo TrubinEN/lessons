@@ -18,41 +18,37 @@ export default class App extends React.Component {
     ]
   };
   handleTabClick = step => {
-    this.setState({
-      step: step
-    });
+    this.setState({ step });
   };
   handleChangeForm = (name, value) => {
     this.setState({
       [name]: value
     });
   };
-  handleClickNextForm = event => {
+  handleClickNextForm = () => {
     let { step } = this.state;
     this.setState({
       step: step + 1
     });
   };
   isFormCommitable() {
-    switch (this.state.step) {
-      case 1:
-        if (
-          this.state.firstName !== "" &&
-          this.state.lastName !== "" &&
-          this.state.email !== "" &&
-          this.state.email.includes("@")
-        ) {
-          return true;
-        }
-        break;
-      case 2:
-        if (this.state.cardNumber.length === 16) {
-          return true;
-        }
-        break;
-      default:
-        return false;
+    const { step, firstName, lastName, email, cardNumber } = this.state;
+
+    if (step === 1) {
+      if (
+        firstName !== "" &&
+        lastName !== "" &&
+        email !== "" &&
+        email.includes("@")
+      )
+        return true;
     }
+
+    if (step === 2) {
+      if (cardNumber.length === 16) return true;
+    }
+
+    return false;
   }
   isSelected(step) {
     if (this.state.step === step) {
@@ -67,35 +63,40 @@ export default class App extends React.Component {
     return false;
   }
   renderForm() {
-    switch (this.state.step) {
-      case 1:
-        return (
-          <PersonalForm
-            firstName={this.state.firstName}
-            lastName={this.state.lastName}
-            email={this.state.email}
-            onChangeForm={this.handleChangeForm}
-          />
-        );
-      case 2:
-        return (
-          <CardForm
-            cardNumber={this.state.cardNumber}
-            onChangeForm={this.handleChangeForm}
-          />
-        );
-      case 3:
-        return `Поздравляем!`;
-      default:
-        return null;
+    const { step } = this.state;
+
+    if (step === 1) {
+      return (
+        <PersonalForm
+          firstName={this.state.firstName}
+          lastName={this.state.lastName}
+          email={this.state.email}
+          onChangeForm={this.handleChangeForm}
+        />
+      );
     }
+
+    if (step === 2) {
+      return (
+        <CardForm
+          cardNumber={this.state.cardNumber}
+          onChangeForm={this.handleChangeForm}
+        />
+      );
+    }
+
+    if (step === 3) {
+      return `Поздравляем!`;
+    }
+
+    return null;
   }
   render() {
     const { steps } = this.state;
     return (
       <div className="container">
         <div className="tab-panel">
-          {steps.map((step, i) => {
+          {steps.map(step => {
             return (
               <Step
                 key={step.number}

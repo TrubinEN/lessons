@@ -3,7 +3,8 @@ import "./PersonalForm.css";
 
 export default class PersonalForm extends React.Component {
   handleChangeForm = event => {
-    this.props.onChangeForm(event.target.name, event.target.value);
+    const { name, value } = event.target;
+    this.props.onChangeForm(name, value);
   };
   render() {
     const { firstName, lastName, email } = this.props;
