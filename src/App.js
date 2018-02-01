@@ -1,19 +1,26 @@
 import React, {Component} from 'react';
 import './App.css';
-import Switcher from './Switcher';
-import CardNumberHolder from './CardNumberHolder';
-import ModalButton from './ModalButton';
-import VideoPlayer from './VideoPlayer';
+import {addListener, removeListener, isAuthorized} from './AuthorizeApi';
 
 class App extends Component {
+  state = {
+    isAuthorized
+  };
+
+  componentDidMount() {
+    addListener(this.handleAuthorize);
+  }
+
+  componentWillUnmount() {
+    removeListener(this.handleAuthorize);
+  }
+
+  handleAuthorize = isAuthorized => {
+    this.setState({isAuthorized});
+  };
+
   render() {
-    return (
-      <Switcher>
-        <VideoPlayer />
-        <CardNumberHolder />
-        <ModalButton />
-      </Switcher>
-    );
+    return null;
   }
 }
 
