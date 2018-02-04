@@ -22,8 +22,7 @@ export default class ModalButton extends Component {
     return (
       <div>
         <button onClick={this.showModal}>Show modal!</button>
-        {isModalShow ? (
-          <Modal
+        {isModalShow && <Modal
             domNode={document.querySelector("#portal")}
             onClick={this.hideModal}
           >
@@ -35,8 +34,7 @@ export default class ModalButton extends Component {
                 </div>
               </div>
             </div>
-          </Modal>
-        ) : null}
+          </Modal>}
       </div>
     );
   }

@@ -12,13 +12,13 @@ export default class Switcher extends Component {
     });
   };
   render() {
-    let { children } = this.props;
+    const children = React.Children.toArray(this.props.children);
     const { selectedChild } = this.state;
     return (
       <div className="switcher">
         <nav>
           <ul className="component-list">
-            {children.map((item, i) => {
+            {React.Children.map(children, (item, i) => {
               return (
                 <li
                   key={i}
