@@ -7,7 +7,7 @@ class Auth extends Component {
     email: "",
     password: "",
     error: false,
-    isAuthorized: isAuthorized
+    ...isAuthorized
   };
   handleSubmit = () => {
     const { email, password } = this.state;
@@ -42,7 +42,7 @@ class Auth extends Component {
             onChange={this.handleChangeInput}
           />
         </div>
-        {error ? <p className="error">Неверный пароль и/или почта.</p> : null}
+        {error && <p className="error">Неверный пароль и/или почта.</p>}
         <button onClick={this.handleSubmit}>Войти</button>
       </div>
     );
