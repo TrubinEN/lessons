@@ -10,7 +10,6 @@ describe('reducer budget', () => {
     const next = budget(undefined, {
       type: MOVE_ORDER_TO_CUSTOMER
     });
-    console.log(next);
     expect(next.deliveryExpanse).toEqual(20);
   });
 
