@@ -1,12 +1,8 @@
-import { combineReducers } from "redux";
-import budget from "./budget";
-import farm from "./farm";
-import market from "./market";
+import {combineReducers} from 'redux';
+import search from './search';
+import shows from './shows';
 
-const reducerApp = combineReducers({
-  budget,
-  farm,
-  market
+export default combineReducers({
+  search,
+  shows
 });
-
-export default reducerApp;
