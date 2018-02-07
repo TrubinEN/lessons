@@ -1,21 +1,20 @@
-export const sortOrderFn = (a, b) => b.createdAt - a.createdAt;
-
 /**
  * Удаляем из массива объекты по ключу
  * возвращам массив
  *
- * @param {*} state
+ * @param {*} array
  * @param {*} id
+ * @param {*} field
  */
 export const deleteArrayValueById = (array, id, field = "id") => {
-  let result = array;
+  let result = [...array];
 
-  array.forEach((item, i) => {
-    if (item[field] === id) {
+  for (let i = 0; i < array.length; i++) {
+    if (array[i][field] === id) {
       result.splice(i, 1);
-      //break;
+      break;
     }
-  });
+  }
 
   return [...result];
 };

@@ -17,8 +17,8 @@ class Farm extends Component {
   componentWillReceiveProps(nextProps) {
     const { orders } = nextProps.farm;
     this.setState({
-      orders: orders,
-      isOrder: orders.length > 0 ? true : false
+      orders: [...orders],
+      isOrder: orders.length > 0
     });
   }
 
@@ -27,8 +27,8 @@ class Farm extends Component {
     const orderToFarm = orders.pop();
 
     this.setState({
-      orders: orders,
-      isOrder: orders.length > 0 ? true : false
+      orders: [...orders],
+      isOrder: orders.length > 0
     });
 
     if (orderToFarm.id) {
@@ -79,12 +79,8 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    moveOrderToCustomer: order => {
-      dispatch(moveOrderToCustomer(order));
-    }
-  };
+const mapDispatchToProps = {
+  moveOrderToCustomer
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Farm);

@@ -61,8 +61,8 @@ export class Market extends Component {
     const orderToFarm = orders.pop();
 
     this.setState({
-      orders: orders,
-      isOrder: orders.length > 0 ? true : false
+      orders: [...orders],
+      isOrder: orders.length > 0
     });
 
     if (orderToFarm.id) {
@@ -123,15 +123,9 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    createOrder: order => {
-      dispatch(createOrder(order));
-    },
-    moveOrderToFarm: order => {
-      dispatch(moveOrderToFarm(order));
-    }
-  };
+const mapDispatchToProps = {
+  createOrder,
+  moveOrderToFarm
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Market);
