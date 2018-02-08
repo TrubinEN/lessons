@@ -1,16 +1,14 @@
 import { handleActions, createActions } from "redux-actions";
 
 const actionCreators = createActions({
-  SHOW: {
-    SHOW_REQUEST: id => id,
-    SHOW_SUCCESS: film => film,
-    SHOW_ERROR: error => error
-  }
+  SHOW_REQUEST: id => id,
+  SHOW_SUCCESS: film => film,
+  SHOW_ERROR: error => error
 });
 
-const requestShow = actionCreators.show.showRequest;
-const successShow = actionCreators.show.showSuccess;
-const errorShow = actionCreators.show.showError;
+const requestShow = actionCreators.showRequest;
+const successShow = actionCreators.showSuccess;
+const errorShow = actionCreators.showError;
 
 const shows = handleActions(
   {

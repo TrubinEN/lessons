@@ -1,16 +1,14 @@
 import { createActions, handleActions } from "redux-actions";
 
 const actionCreators = createActions({
-  SEARCH: {
-    SEARCH_REQUEST: id => id,
-    SEARCH_SUCCESS: result => [...result],
-    SEARCH_ERROR: error => error
-  }
+  SEARCH_REQUEST: id => id,
+  SEARCH_SUCCESS: result => [...result],
+  SEARCH_ERROR: error => error
 });
 
-const requestSearch = actionCreators.search.searchRequest;
-const successSearch = actionCreators.search.searchSuccess;
-const errorSearch = actionCreators.search.searchError;
+const requestSearch = actionCreators.searchRequest;
+const successSearch = actionCreators.searchSuccess;
+const errorSearch = actionCreators.searchError;
 
 const search = handleActions(
   {
