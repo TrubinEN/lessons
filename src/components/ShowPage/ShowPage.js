@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { fetchShowRequest } from "../../actions/showActions";
+import { requestShow } from "../../reducers/shows";
 
 const ShowContainer = styled.div`
   text-align: center;
@@ -17,12 +17,12 @@ class ShowPage extends Component {
   constructor(props) {
     super(props);
     const { id } = props.match.params;
-    const { fetchShowRequest, isFetching } = props;
+    const { requestShow, isFetching } = props;
 
     this.state = { isFetching };
 
-    if (fetchShowRequest && id) {
-      fetchShowRequest(id);
+    if (requestShow && id) {
+      requestShow(id);
     }
   }
   componentWillReceiveProps(nextProps) {
@@ -32,7 +32,7 @@ class ShowPage extends Component {
   render() {
     const { isFetching } = this.state;
     const { name, image, summary, _embedded } = this.props.film;
-    console.log(this.props);
+
     return (
       <ShowContainer>
         {!isFetching ? (
@@ -72,5 +72,5 @@ const mapStateToProps = state => {
     isFetching: state.shows.isFetching
   };
 };
-const mapDispatchToProps = { fetchShowRequest };
+const mapDispatchToProps = { requestShow };
 export default connect(mapStateToProps, mapDispatchToProps)(ShowPage);

@@ -1,25 +1,38 @@
-import { SHOW_REQUEST, SHOW_SUCCESS, SHOW_ERROR } from "../actions/showTypes";
+import { handleActions, createActions } from "redux-actions";
 
-export default (state = { film: [], isFetching: false, error: false }, action) => {
-  //console.log(state, action);
-  switch (action.type) {
-    case SHOW_REQUEST:
-      return {
-        isFetching: true,
-        film: state.film
-      };
-    case SHOW_SUCCESS:
-      return {
-        isFetching: false,
-        film: action.payload
-      };
-    case SHOW_ERROR:
-      return {
-        isFetching: false,
-        error: action.error,
-        film: state.film
-      };
-    default:
-      return state;
+const actionCreators = createActions({
+  SHOW: {
+    SHOW_REQUEST: id => id,
+    SHOW_SUCCESS: film => film,
+    SHOW_ERROR: error => error
   }
-};
+});
+
+const requestShow = actionCreators.show.showRequest;
+const successShow = actionCreators.show.showSuccess;
+const errorShow = actionCreators.show.showError;
+
+const shows = handleActions(
+  {
+    [requestShow]: (state, action) => ({
+      isFetching: true,
+      film: state.film
+    }),
+    [successShow]: (state, action) => ({
+      isFetching: false,
+      film: action.payload
+    }),
+    [errorShow]: (state, action) => ({
+      isFetching: false,
+      error: action.error,
+      film: state.film
+    })
+  },
+  {
+    film: [],
+    isFetching: false,
+    error: false
+  }
+);
+
+export { shows, requestShow, successShow, errorShow };

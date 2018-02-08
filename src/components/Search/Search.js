@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { fetchSearchRequest } from "../../actions/searchActions";
+import { requestSearch } from "../../reducers/search";
 import styled from "styled-components";
 
 const FilmSearchConteiner = styled.div`
@@ -28,7 +28,6 @@ const FilmH2 = styled.h2`
   font-size: 18px;
   text-align: center;
 `;
-
 class Search extends Component {
   constructor(props) {
     super(props);
@@ -44,9 +43,9 @@ class Search extends Component {
   };
   handleClickSearch = () => {
     const { value } = this.state;
-    const { fetchSearchRequest, isFetching } = this.props;
+    const { requestSearch, isFetching } = this.props;
     if (!isFetching) {
-      fetchSearchRequest(value);
+      requestSearch(value);
     }
   };
   componentWillReceiveProps(nextProps) {
@@ -101,5 +100,5 @@ const mapStateToProps = state => ({
   result: state.search.result,
   isFetching: state.search.isFetching
 });
-const mapDispatchToProps = { fetchSearchRequest };
+const mapDispatchToProps = { requestSearch };
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

@@ -1,15 +1,14 @@
 import { show } from "../api";
-import { fetchShowSuccess, fetchShowError } from "../actions/showActions";
-import { SHOW_REQUEST } from "../actions/showTypes";
+import { requestShow, errorShow, successShow } from "../reducers/shows";
 
 const showMiddleware = store => next => action => {
   const result = next(action);
-  if (action.type === SHOW_REQUEST) {
+  if (action.type === requestShow.toString()) {
     show(action.payload).then(value => {
       if (value) {
-        store.dispatch(fetchShowSuccess(value));
+        store.dispatch(successShow(value));
       } else {
-        store.dispatch(fetchShowError(value));
+        store.dispatch(errorShow(value));
       }
     });
   }

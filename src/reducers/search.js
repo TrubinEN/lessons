@@ -1,29 +1,36 @@
-import {
-  SEARCH_REQUEST,
-  SEARCH_SUCCESS,
-  SEARCH_ERROR
-} from "../actions/searchTypes";
+import { createActions, handleActions } from "redux-actions";
 
-export default (state = { result: [], isFetching: false, error: false }, action) => {
-  //console.log(state, action);
-  switch (action.type) {
-    case SEARCH_REQUEST:
-      return {
-        isFetching: true,
-        result: [...state.result]
-      };
-    case SEARCH_SUCCESS:
-      return {
-        isFetching: false,
-        result: [...action.payload]
-      };
-    case SEARCH_ERROR:
-      return {
-        isFetching: false,
-        error: action.error,
-        result: [...state.result]
-      };
-    default:
-      return state;
+const actionCreators = createActions({
+  SEARCH: {
+    SEARCH_REQUEST: id => id,
+    SEARCH_SUCCESS: result => [...result],
+    SEARCH_ERROR: error => error
   }
-};
+});
+
+const requestSearch = actionCreators.search.searchRequest;
+const successSearch = actionCreators.search.searchSuccess;
+const errorSearch = actionCreators.search.searchError;
+
+const search = handleActions(
+  {
+    [requestSearch]: (state, action) => ({
+      isFetching: true,
+      result: [...state.result]
+    }),
+
+    [successSearch]: (state, action) => ({
+      isFetching: false,
+      result: [...action.payload]
+    }),
+
+    [errorSearch]: (state, action) => ({
+      isFetching: false,
+      error: action.error,
+      result: [...state.result]
+    })
+  },
+  { isFetching: false, result: [] }
+);
+
+export { search, requestSearch, successSearch, errorSearch };
