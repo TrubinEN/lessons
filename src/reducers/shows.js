@@ -33,4 +33,16 @@ const shows = handleActions(
   }
 );
 
-export { shows, requestShow, successShow, errorShow };
+const getIsFetching = state => state.shows.isFetching;
+const getFilm = state => state.shows.film;
+const getError = state => state.shows.error;
+
+export {
+  shows,
+  requestShow,
+  successShow,
+  errorShow,
+  getIsFetching,
+  getError,
+  getFilm
+};

@@ -31,4 +31,16 @@ const search = handleActions(
   { isFetching: false, result: [] }
 );
 
-export { search, requestSearch, successSearch, errorSearch };
+const getResult = state => state.search.result;
+const getIsFetching = state => state.search.isFetching;
+const getError = state => state.search.error;
+
+export {
+  search,
+  requestSearch,
+  successSearch,
+  errorSearch,
+  getResult,
+  getIsFetching,
+  getError
+};

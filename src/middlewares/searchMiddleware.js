@@ -5,13 +5,13 @@ const searchMiddleware = store => next => action => {
   const result = next(action);
 
   if (action.type === requestSearch.toString()) {
-    search(action.payload).then(value => {
-      if (value) {
+    search(action.payload)
+      .then(value => {
         store.dispatch(successSearch(value));
-      } else {
-        store.dispatch(errorSearch(value));
-      }
-    });
+      })
+      .catch(error => {
+        store.dispatch(errorSearch(error));
+      });
   }
 
   return result;

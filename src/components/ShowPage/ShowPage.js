@@ -1,7 +1,12 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { requestShow } from "../../reducers/shows";
+import {
+  requestShow,
+  getIsFetching,
+  getError,
+  getFilm
+} from "../../reducers/shows";
 
 const ShowContainer = styled.div`
   text-align: center;
@@ -12,6 +17,8 @@ const FilmsPersonAll = styled.div`
   flex-wrap: wrap;
   margin: 40px;
 `;
+
+const ShowError = () => <p>Идет загрузка данных о фильме...</p>;
 
 class ShowPage extends Component {
   constructor(props) {
@@ -58,7 +65,7 @@ class ShowPage extends Component {
             </FilmsPersonAll>
           </Fragment>
         ) : (
-          <p>Идет загрузка данных о фильме...</p>
+          <ShowError />
         )}
       </ShowContainer>
     );
@@ -67,9 +74,9 @@ class ShowPage extends Component {
 
 const mapStateToProps = state => {
   return {
-    error: state.shows.error,
-    film: state.shows.film,
-    isFetching: state.shows.isFetching
+    error: getError(state),
+    film: getFilm(state),
+    isFetching: getIsFetching(state)
   };
 };
 const mapDispatchToProps = { requestShow };

@@ -1,6 +1,12 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { requestSearch } from "../../reducers/search";
+import { Link } from "react-router-dom";
+import {
+  requestSearch,
+  getResult,
+  getIsFetching,
+  getError
+} from "../../reducers/search";
 import styled from "styled-components";
 
 const FilmSearchConteiner = styled.div`
@@ -31,9 +37,10 @@ const FilmH2 = styled.h2`
 class Search extends Component {
   constructor(props) {
     super(props);
+    const { result } = props;
     this.state = {
       value: "",
-      result: [],
+      result: [...result],
       isFetching: props.isFetching
     };
   }
@@ -79,9 +86,9 @@ class Search extends Component {
           {result.map((film, i) => {
             return (
               <Film key={i} className="t-preview">
-                <a href={"/shows/" + film.id} className="t-link">
+                <Link to={`/shows/${film.id}`} className="t-link">
                   <FilmH2>{film.name}</FilmH2>
-                </a>
+                </Link>
                 {film.image && (
                   <FilmPreview src={film.image["medium"]} alt={film.name} />
                 )}
@@ -96,9 +103,10 @@ class Search extends Component {
 }
 
 const mapStateToProps = state => ({
-  error: state.search.error,
-  result: state.search.result,
-  isFetching: state.search.isFetching
+  error: getError(state),
+  result: getResult(state),
+  isFetching: getIsFetching(state)
 });
+
 const mapDispatchToProps = { requestSearch };
 export default connect(mapStateToProps, mapDispatchToProps)(Search);
