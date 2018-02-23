@@ -1,0 +1,14 @@
+.user-profile {
+    width: 250px;
+    margin: 0 auto;
+}
+.user-profile img {
+    max-width: 100%;
+}
+.user-followers {
+    background: #eee;
+    display: block;
+    width: 100%;
+    padding: 10px 20px;
+    overflow: hidden;
+}

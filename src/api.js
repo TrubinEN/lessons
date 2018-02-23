@@ -1,13 +1,24 @@
-export const search = query =>
-  fetch(`http://api.tvmaze.com/search/shows?q=${query}`, {
-    method: 'GET',
-    mode: 'cors'
-  })
-    .then(response => response.json())
-    .then(shows => shows.map(show => show.show));
+import axios from "axios";
 
-export const show = showId =>
-  fetch(`http://api.tvmaze.com/shows/${showId}?embed=cast`, {
-    method: 'GET',
-    mode: 'cors'
-  }).then(response => response.json());
+const instance = axios.create({
+  baseURL: "https://api.github.com/"
+});
+
+export const setTokenApi = access_token => {
+  instance.defaults.params = { access_token };
+};
+
+export const clearTokenApi = () => {
+  instance.defaults.params = { access_token: undefined };
+};
+
+export const getUserInformation = login => instance(`users/${login}`);
+export const getUserFollowers = login =>
+  instance(`users/${login}/followers?pages=1&per_page=100`);
+export const getTokenOwner = token => {
+  setTokenApi(token);
+  return instance("user");
+};
+
+export const getSignInUrl = () =>
+  `https://github.com/login/oauth/authorize?client_id=cc8c66d996c2c8478c2d`;

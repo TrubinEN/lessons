@@ -1,8 +1,12 @@
-import {combineReducers} from 'redux';
-import {search} from './search';
-import {shows} from './shows';
+import { combineReducers } from "redux";
+import { users } from "./users.js";
+import { followers } from "./followers";
+import network from "./network";
+import { auth } from "./auth";
 
 export default combineReducers({
-  search,
-  shows
+  auth,
+  network,
+  users,
+  followers
 });
