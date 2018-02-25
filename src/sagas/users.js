@@ -12,7 +12,6 @@ import { getTokenFromLocalStorage } from "../localStorage";
 export function* fetchUserSaga(action) {
   try {
     let response;
-
     if (fetchTokenOwnerRequest.toString() === action.type) {
       const token = getTokenFromLocalStorage();
       const defaultProfile = yield call(requestFlow, getTokenOwner, token);

@@ -19,23 +19,34 @@ export class AppRouter extends Component {
 
   render() {
     const { isAuthorized, networkError } = this.props;
-    if (networkError) {
-      return <div className="error-network">Ошибка: {networkError}</div>;
-    }
 
     return (
       <div>
-        {isAuthorized && (
-          <div className="page-header">
-            <button className="logout-button" onClick={this.handleLogout}>
-              Logout
-            </button>
-          </div>
+        {networkError && (
+          <div className="error-network">Ошибка: {networkError}</div>
         )}
+        {isAuthorized &&
+          !networkError && (
+            <div className="page-header">
+              <button className="logout-button" onClick={this.handleLogout}>
+                Logout
+              </button>
+            </div>
+          )}
         <Switch>
-          <PrivateRoute path="/user/me" exact component={UserPage} isAuthorized={isAuthorized}/>
-          <PrivateRoute path="/user/:name" component={UserPage}  isAuthorized={isAuthorized}/>
+          <PrivateRoute
+            path="/user/me"
+            exact
+            component={UserPage}
+            isAuthorized={isAuthorized}
+          />
+          <PrivateRoute
+            path="/user/:name"
+            component={UserPage}
+            isAuthorized={isAuthorized}
+          />
           {!isAuthorized && <Route path="/login" exact component={AuthPage} />}
+          {networkError && !isAuthorized && <Route component={AuthPage} />}
           <Redirect to="/user/me" />
         </Switch>
       </div>
